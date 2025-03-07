@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### GIT IGNORE ###
+C:\Users\saraa\OneDrive\Cursos\FERNANDA KIPPER\backend completo spring boot\api\src\main\resources\application.properties
