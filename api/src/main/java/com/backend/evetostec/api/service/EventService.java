@@ -14,11 +14,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.services.s3.AmazonS3;
 import com.backend.evetostec.api.domain.event.Event;
 import com.backend.evetostec.api.domain.event.EventRequestDTO;
+import com.backend.evetostec.api.repositories.EventRepository;
 
 @Service
 public class EventService {
     @Autowired
     private AmazonS3 S3Client;
+
+    @Autowired
+    private EventRepository eventRepository;
 
     @Value("${aws.bucket.name}")
     private String bucketName;
@@ -35,7 +39,8 @@ public class EventService {
         newEvent.setEventUrl(data.eventUrl());
         newEvent.setDate(new Date(data.date()));
         newEvent.setImgUrl(imgUrl);
-
+        newEvent.setRemote(data.remote());
+        eventRepository.save(newEvent);
         return newEvent;
     }
 
@@ -51,7 +56,7 @@ public class EventService {
 
         }catch(Exception e){
             System.out.println("erro ao subir arquivo");
-            return null;
+            return "";
         }
 
     }
